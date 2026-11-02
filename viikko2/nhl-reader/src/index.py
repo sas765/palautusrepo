@@ -1,16 +1,20 @@
-import requests
 from player import Player
 from playerreader import PlayerReader
 from playerstats import PlayerStats
+from playerio import PlayerIO
 
 def main():
-    url = "https://studies.cs.helsinki.fi/nhlstats/2024-25/players"
+    io = PlayerIO()
+    io.set_season()
+    url = io.get_url()
     reader = PlayerReader(url)
     stats = PlayerStats(reader)
-    players = stats.top_scorers_by_nationality("FIN")
-
-    for player in players:
-        print(player)
+    nationality = io.nationality()
+    while nationality != "":
+        players = stats.top_scorers_by_nationality(nationality)
+        for player in players:
+            print(player)
+        nationality = io.nationality()
 
 
 
