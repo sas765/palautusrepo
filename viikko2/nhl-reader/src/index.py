@@ -1,6 +1,9 @@
 import requests
 from player import Player
 
+def points(player: Player):
+    return player.points
+
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2024-25/players"
     response = requests.get(url).json()
@@ -22,7 +25,7 @@ def main():
     finland = [p for p in players if p.nationality == "FIN"]
 
     print("Suomalaiset pelaajat:")
-    for player in finland:
+    for player in sorted(finland, key=points, reverse=True):
         print(player)
 
 if __name__ == "__main__":
