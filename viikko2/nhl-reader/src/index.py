@@ -18,5 +18,12 @@ def main():
 
     for player in players:
         print(player)
+
+    finland = [p for p in players if p.nationality == "FIN"]
+
+    print("Suomalaiset pelaajat:")
+    for player in finland:
+        print(player)
+
 if __name__ == "__main__":
     main()
