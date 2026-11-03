@@ -150,6 +150,9 @@ requires-dist = [
     { name = "rich", specifier = ">=15.0.0" },
 ]
 
+[package.metadata.requires-dev]
+dev = []
+
 [[package]]
 name = "pygments"
 version = "2.21.0"
