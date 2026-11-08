@@ -14,15 +14,22 @@ def main():
     table_loop(io, stats, season)
 
 def table_loop(io, stats, season):
-    nationality = io.nationality()
-    while nationality != "":
-        table = create_table(nationality, season)
-        players = get_players(stats, nationality)
+    search_type = io.search_type()
+    while search_type != "":
+        search_value = get_search_value(io, stats, search_type)
+        players = get_players(io, stats, search_type, search_value)
+        table = create_table(search_type, search_value, season)
         print_table(io, table, players)
-        nationality = io.nationality()
+        search_type = io.search_type()
 
-def create_table(nationality, season):
-    table = Table(title=f"Season {season} players from {nationality}")
+def get_search_value(io, stats, search_type):
+    if search_type == "n":
+        return io.nationality(stats.nationalities)
+    return io.team(stats.teams)
+
+def create_table(search_type, search_value, season):
+    filter_name = "nationality" if search_type == "n" else "team"
+    table = Table(title=f"Season {season} players by {filter_name}: {search_value}")
     table.add_column("Player", justify="left", style="cyan", no_wrap=True)
     table.add_column("Teams", style="magenta")
     table.add_column("Goals", style="green")
@@ -34,17 +41,18 @@ def create_table(nationality, season):
 
 def print_table(io: PlayerIO, table, players):
     for player in players:
-        row = [str(player.name), str(player.team), str(player.goals),
-                str(player.assists), str(player.points), str(player.games),
-                str(format(player.points/player.games, ".2f"))]
-        table.add_row(row)
+        row = [str(player.name), str(player.team), str(player.goals), str(player.assists), str(player.points), str(player.games), str(format(player.points/player.games, ".2f"))]
+        table.add_row(*row)
 
     io.console.print(table)
 
-def get_players(stats: PlayerStats, nationality):
-    players = stats.top_scorers_by_nationality(nationality)
-    return players
-
+def get_players(io, stats: PlayerStats, search_type, search_value):
+    if search_type == "n":
+        return stats.top_scorers_by_nationality(search_value)
+    if search_type == "t":
+        return stats.top_scorers_by_team(search_value)
+    how_many = io.how_many()
+    return stats.top_goal_scorers(how_many)
 
 
 if __name__ == "__main__":
