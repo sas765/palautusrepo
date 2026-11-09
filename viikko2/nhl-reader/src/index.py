@@ -41,7 +41,8 @@ def create_table(search_type, search_value, season):
 
 def print_table(io: PlayerIO, table, players):
     for player in players:
-        row = [str(player.name), str(player.team), str(player.goals), str(player.assists), str(player.points), str(player.games), str(format(player.points/player.games, ".2f"))]
+        row = [str(player.name), str(player.team), str(player.goals), str(player.assists),
+            str(player.points), str(player.games), str(format(player.points/player.games, ".2f"))]
         table.add_row(*row)
 
     io.console.print(table)

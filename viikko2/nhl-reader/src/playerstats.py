@@ -17,7 +17,7 @@ def get_nationalities(players):
     nationalities = set()
     for p in players:
         nationalities.add(p.nationality)
-    
+
     return list(nationalities)
 
 class PlayerStats:

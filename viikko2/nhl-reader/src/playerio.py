@@ -5,10 +5,6 @@ class PlayerIO:
         self.console = Console()
         self._valid_seasons = ["2018-19", "2019-20", "2020-21", "2021-22",
                                "2022-23", "2023-24", "2024-25", "2025-26"]
-        self._valid_nationalities = ["USA", "FIN", "CAN", "SWE", "CZE", "RUS",
-                                    "SLO", "FRA", "GBR", "SVK", "DEN", "NED",
-                                    "AUT", "BLR", "GER", "SUI", "NOR", "UZB",
-                                    "LAT", "AUS"]
         self.season = default_season if default_season in self._valid_seasons else "2024-25"
 
     def set_season(self):
@@ -28,11 +24,11 @@ class PlayerIO:
 
     def search_type(self):
         search_type = self.console.input(
-            "Search for most goals (g) or top points by nationality (n) or by team (t), leave empty to quit: "
+"Search for most goals (g) or top points by nationality (n) or by team (t), leave empty to quit: "
         ).lower()
         while search_type not in ("g", "n", "t", ""):
             search_type = self.console.input(
-                "Choose most goals (g) or top points by nationality (n) or by team (t), leave empty to quit: "
+    "Choose most goals (g) or top points by nationality (n) or by team (t), leave empty to quit: "
             ).lower()
         return search_type
 
@@ -53,13 +49,13 @@ class PlayerIO:
             team = self.console.input(
                 f"Enter valid team [magenta]{teams_print}: ").upper()
         return team
-    
+
     def how_many(self):
         limit = input("How many of the top scorers would you like to see: ")
-        while type(limit) == str:
+        while isinstance(limit, str):
             try:
                 limit = int(limit)
-            except:
+            except ValueError:
                 limit = input("How many of the top scorers would you like to see: ")
-        
+
         return limit
