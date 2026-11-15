@@ -52,6 +52,11 @@ class UserService:
                 "Password too short"
             )
 
+        if password.isalpha():
+            raise UserInputError(
+                "Password must contain at least one non-letter character"
+            )
+
         if password != password_confirmation:
             raise UserInputError(
                 "Passwords don't match"

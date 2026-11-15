@@ -8,8 +8,15 @@ Test Setup      Reset Application Create User And Go To Register Page
 
 Register With Valid Username And Password
     Set Username  meemil
-    Set Password  moimeemil
-    Set Password Confirmation  moimeemil
+    Set Password  kalle123
+    Set Password Confirmation  kalle123
+    Click  button >> text=Register
+    Register Should Succeed
+
+Register With Password Containing A Special Character
+    Set Username  meemil
+    Set Password  kalle#abc
+    Set Password Confirmation  kalle#abc
     Click  button >> text=Register
     Register Should Succeed
 
@@ -27,10 +34,24 @@ Register With Valid Username And Too Short Password
     Click  button >> text=Register
     Register Should Fail With Message  Password too short
 
+Register With Password Containing Only Lowercase Letters
+    Set Username  meemil
+    Set Password  kallekalle
+    Set Password Confirmation  kallekalle
+    Click  button >> text=Register
+    Register Should Fail With Message  Password must contain at least one non-letter character
+
+Register With Password Containing Only Uppercase And Lowercase Letters
+    Set Username  meemil
+    Set Password  KalleKalle
+    Set Password Confirmation  KalleKalle
+    Click  button >> text=Register
+    Register Should Fail With Message  Password must contain at least one non-letter character
+
 Register With Username That Is Already In Use
     Set Username  kalle
-    Set Password  moikalle
-    Set Password Confirmation  moikalle
+    Set Password  moikalle123
+    Set Password Confirmation  moikalle123
     Click  button >> text=Register
     Register Should Fail With Message  User with username kalle already exists
 
