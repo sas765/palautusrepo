@@ -1,13 +1,12 @@
 # Repository guide
 
-- This repository contains independent weekly exercises, not one Python workspace. Run `uv` commands from the relevant project directory; each project has its own `pyproject.toml` and `uv.lock`.
-- Projects require Python 3.14 (`.python-version` / `requires-python`).
+- This is a collection of independent weekly exercises, not one Python workspace. Run `uv` commands from the exercise directory containing its `pyproject.toml`; there is no root-level test or lint command.
+- The Python projects require Python 3.14.
 
 ## Projects and checks
 
-- `viikko1/nhl-statistics`: NHL statistics library/CLI; tests are in `src/tests/`. From this directory run `uv run pytest` (or a focused test, e.g. `uv run pytest src/tests/player_test.py`).
-- `viikko1/riippuvuuksien-injektointi`: calculator exercise; tests are in `src/tests/`. From this directory run `uv run pytest` (or `uv run pytest src/tests/laskin_test.py`).
-- `viikko2/nhl-reader`: CLI starts at `src/index.py`; it fetches season data from the Helsinki studies NHL stats endpoint. Run with `uv run python src/index.py`; lint with `uv run pylint src` (configured by `.pylintrc`). No tests are currently present.
-- `viikko2/uv-web`: package entrypoint is `uv_web:main` in `src/uv_web/__init__.py`; no tests are currently present.
-
-There is no root-level test or lint command; run checks separately in each project that has them.
+- `viikko1/nhl-statistics` and `viikko1/riippuvuuksien-injektointi`: run all tests with `uv run pytest`; target one test file with, for example, `uv run pytest src/tests/player_test.py` or `uv run pytest src/tests/laskin_test.py`.
+- `viikko2/nhl-reader`: CLI entrypoint is `src/index.py` (`uv run python src/index.py`); tests are in `src/tests/` (`uv run pytest`); lint with `uv run pylint src` using `.pylintrc`.
+- `viikko2/uv-web`: console entrypoint is `uv-web` (`uv run uv-web`), implemented by `src/uv_web/__init__.py`.
+- `viikko3/hello-robot`: Robot Framework tests are in `src/tests/`; run with `uv run robot src/tests`.
+- `viikko3/login`: Flask app entrypoint is `src/index.py`; browser tests are in `src/tests/` and run with `uv run robot src/tests`. The tests and their helper target `127.0.0.1:5000`, while `src/index.py` starts the app on port `5001`; start the app on the expected test port before running them. Username and password are validated in `src/services/user_service.py`.
